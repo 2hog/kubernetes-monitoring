@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: 99-problems
+  name: problem-2
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: problem-2
+  template:
+    metadata:
+      labels:
+        app: problem-2
+    spec:
+      containers:
+      - image: nginx:alpine
+        imagePullPolicy: IfNotPresent
+        name: nginx
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 1
+          periodSeconds: 1

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: 99-problems
+  name: problem-4
+spec:
+  selector:
+    matchLabels:
+      app: problem-4
+  template:
+    metadata:
+      labels:
+        app: problem-4
+    spec:
+      initContainers:
+      - name: install
+        image: alpine
+        command:
+        - exit
+        - 1
+      containers:
+      - image: nginx:alpine
+        imagePullPolicy: IfNotPresent
+        name: nginx

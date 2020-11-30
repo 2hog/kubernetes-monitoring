@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: prom
+  namespace: kube-system
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 16Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/prom"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: alertmanager
+  namespace: kube-system
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 16Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/prom"
+
