@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: 99-problems
+  name: problem-3
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: problem-3
+  template:
+    metadata:
+      labels:
+        app: problem-3
+    spec:
+      containers:
+      - image: nginx:alpine
+        imagePullPolicy: IfNotPresent
+        name: nginx
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 1
+          periodSeconds: 1
+---
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    app: 99-problems
+  name: problem-3
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 81
+      nodePort: 3000
+  selector:
+    app: problem-4
